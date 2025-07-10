@@ -120,6 +120,25 @@ spec:
         - name: ollama-config
           mountPath: /root/.ollama
         resources:
+
+        livenessProbe:
+          httpGet:
+            path: /api/tags
+            port: 11434
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /api/tags
+            port: 11434
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          
       volumes:
       - name: ollama-models
         persistentVolumeClaim:
@@ -128,6 +147,7 @@ spec:
         emptyDir: {}
       restartPolicy: Always
       runtimeClassName: nvidia
+
       # Security context
       securityContext:
         runAsNonRoot: false
@@ -262,6 +282,24 @@ spec:
         env:
         - name: OLLAMA_BASE_URL
           value: "http://ollama-service:11434"
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
 
       volumes:
       - name: webui-data
