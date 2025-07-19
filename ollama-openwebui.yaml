@@ -23,10 +23,10 @@ spec:
           operator: In
           values:
           - "true"
-        - key: nvidia.com/gpu.product
-          operator: In
-          values:
-          - "NVIDIA-GeForce-RTX-3060"
+        # - key: nvidia.com/gpu.product
+        #   operator: In
+        #   values:
+        #   - "NVIDIA-GeForce-RTX-3060"
 
 ---
 # Persistent Volume Claim
@@ -86,7 +86,6 @@ spec:
     spec:
       nodeSelector:
         nvidia.com/gpu.present: "true"
-        nvidia.com/gpu.product: "NVIDIA-GeForce-RTX-3060"
 
       affinity:
         nodeAffinity:
@@ -97,10 +96,7 @@ spec:
                 operator: In
                 values:
                 - "true"
-              - key: nvidia.com/gpu.product
-                operator: In
-                values:
-                - "NVIDIA-GeForce-RTX-3060"
+
       containers:
       - name: ollama
         image: ollama/ollama:latest
@@ -207,10 +203,6 @@ spec:
           operator: In
           values:
           - "true"
-        - key: nvidia.com/gpu.product
-          operator: In
-          values:
-          - "NVIDIA-GeForce-RTX-3060"
 
 ---
 # Open WebUI PVC

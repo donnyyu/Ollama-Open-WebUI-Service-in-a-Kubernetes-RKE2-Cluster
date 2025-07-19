@@ -26,8 +26,7 @@ This project provides Kubernetes manifests to deploy Ollama (Large Language Mode
 ### Node Labels
 Ensure your GPU node has the following labels:
 ```bash
-kubectl label nodes <node-name> nvidia.com/gpu.present=true
-kubectl label nodes <node-name> nvidia.com/gpu.product=NVIDIA-GeForce-RTX-3060
+nvidia.com/gpu.present=true
 ```
 
 ## Installation
